@@ -1,27 +1,50 @@
-const express = require("express");
-const colors = require("colors");
-const cors = require("cors");
-require("dotenv").config();
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./schema/schema");
-const connectDB = require("./config/db");
-const port = process.env.PORT || 5000;
+// const express = require("express");
+// const colors = require("colors");
+// const cors = require("cors");
+// require("dotenv").config();
+// const connectDB = require("./config/db");
+// const port = process.env.PORT || 5000;
+import { ApolloServer } from "apollo-server-express";
+import {
+  ApolloServerPluginDrainHttpServer,
+  ApolloServerPluginLandingPageLocalDefault,
+} from "apollo-server-core";
+import express from "express";
+import http from "http";
+import colors from "colors";
+import connectDB from "./config/db.js";
+import "dotenv/config";
+import cors from "cors";
+
+import typeDefs from "./graphql/typeDefs.js";
+import resolvers from "./graphql/resolves/index.js";
 
 const app = express();
-
-// Connect to database
-connectDB();
-
 app.use(cors());
 
-// 此處用.use，因為route對象包含post、put等
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    // graphiql: true, 使用graphiql工具
-    graphiql: process.env.NODE_ENV === "development",
-  })
-);
+async function startApolloServer(typeDefs, resolvers) {
+  // Connect to database
+  connectDB();
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    csrfPrevention: true,
+    cache: "bounded",
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+    ],
+  });
 
-app.listen(port, console.log(`Server running on port ${port}`));
+  await server.start();
+  server.applyMiddleware({ app });
+  await new Promise((resolve) =>
+    httpServer.listen({ port: process.env.PORT }, resolve)
+  );
+  console.log(
+    `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`
+  );
+}
+
+startApolloServer(typeDefs, resolvers);

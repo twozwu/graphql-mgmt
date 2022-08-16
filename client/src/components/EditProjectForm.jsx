@@ -10,12 +10,18 @@ export default function EditProjectForm({ project }) {
   const [description, setDescription] = useState(project.description);
   const [status, setStatus] = useState(() => {
     switch (project.status) {
-      case "Not Started":
+      case "new":
         return "new";
-      case "In Progress":
+      case "progress":
         return "progress";
-      case "Completed":
+      case "completed":
         return "completed";
+      // case "Not Started": // 新版後端enum無法空格
+      //   return "new";
+      // case "In Progress":
+      //   return "progress";
+      // case "Completed":
+      //   return "completed";
       default:
         throw new Error(`Unknown status: ${project.status}`);
     }
@@ -32,7 +38,7 @@ export default function EditProjectForm({ project }) {
     if (!name || !description || !status) {
       return alert("Please fill out all fields");
     }
-
+    const id = project.id;
     updateProject(name, description, status);
     navigate("/");
   };

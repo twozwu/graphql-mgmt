@@ -1,4 +1,15 @@
 export default function ProjectCard({ project }) {
+  function statusTransform(status) {
+    switch (status) {
+      case "new":
+        return "Not Started";
+      case "progress":
+        return "In Progress";
+      case "completed":
+        return "Completed";
+    }
+  }
+
   return (
     <div className="col-md-6">
       <div className="card mb-3">
@@ -11,7 +22,7 @@ export default function ProjectCard({ project }) {
             </a>
           </div>
           <p className="small">
-            Status: <strong>{project.status}</strong>
+            Status: <strong>{statusTransform(project.status)}</strong>
           </p>
         </div>
       </div>

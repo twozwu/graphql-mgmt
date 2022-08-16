@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const ADD_PROJECT = gql`
   mutation AddProject(
@@ -8,10 +8,12 @@ const ADD_PROJECT = gql`
     $clientId: ID!
   ) {
     addProject(
-      name: $name
-      description: $description
-      status: $status
-      clientId: $clientId
+      projectInput: {
+        name: $name
+        description: $description
+        status: $status
+        clientId: $clientId
+      }
     ) {
       id
       name
@@ -40,13 +42,15 @@ const UPDATE_PROJECT = gql`
     $id: ID!
     $name: String!
     $description: String!
-    $status: ProjectStatusUpdate! # 對應後端的gql status name
+    $status: ProjectStatus! # 對應後端的 enum type name
   ) {
     updateProject(
-      id: $id
-      name: $name
-      description: $description
-      status: $status
+      projectInput: { # 對應後端的 input type name
+        id: $id
+        name: $name
+        description: $description
+        status: $status
+      }
     ) {
       id
       name

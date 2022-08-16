@@ -5,7 +5,7 @@ import { ADD_PROJECT } from "../graphql/mutations/projectMutations";
 import { GET_PROJECTS } from "../graphql/queries/projectQueries";
 import { GET_CLIENTS } from "../graphql/queries/clientQueries";
 
-export default function AddClientModal() {
+export default function AddProjectModal() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [clientId, setClientId] = useState("");
@@ -22,7 +22,7 @@ export default function AddClientModal() {
     },
   });
 
-  // Get Clients for select
+  // Get Clients for select。用於client下拉式選單
   const { loading, error, data } = useQuery(GET_CLIENTS);
 
   const onSubmit = (e) => {
@@ -31,12 +31,11 @@ export default function AddClientModal() {
     if (name === "" || description === "" || status === "") {
       return alert("Please fill in all fields");
     }
-
     addProject(name, description, clientId, status);
 
     setName("");
     setDescription("");
-    setStatus("new");
+    setStatus("");
     setClientId("");
   };
 

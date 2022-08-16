@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Project from "./pages/Project";
 import NotFound from "./pages/NotFound";
 
+// 防出現警告的設定
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {

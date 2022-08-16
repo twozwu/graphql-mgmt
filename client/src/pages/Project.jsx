@@ -9,7 +9,6 @@ import { GET_PROJECT } from "../graphql/queries/projectQueries";
 export default function Project() {
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_PROJECT, { variables: { id } });
-
   if (loading) return <Spinner />;
   if (error) return <p>Something Went Wrong</p>;
 
