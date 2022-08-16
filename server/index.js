@@ -20,7 +20,7 @@ import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolves/index.js";
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 
 async function startApolloServer(typeDefs, resolvers) {
   // Connect to database
@@ -29,6 +29,8 @@ async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    introspection: true,
+    playground: true,
     csrfPrevention: true,
     cache: "bounded",
     plugins: [
