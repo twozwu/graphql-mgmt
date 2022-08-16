@@ -24,7 +24,6 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "type": "module",
   "engines": {
     "node": "16.x"
   }

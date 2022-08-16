@@ -1,7 +1,11 @@
-import Project from "../../models/Project.js";
-import Client from "../../models/Client.js";
+// import Project from "../../models/Project.js";
+// import Client from "../../models/Client.js";
 
-export default {
+const Project = require("../../models/Project")
+const Client = require("../../models/Client")
+
+// export default {
+module.exports = {
   Query: {
     projects: async () => await Project.find(),
     // 複合查詢

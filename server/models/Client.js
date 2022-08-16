@@ -1,5 +1,5 @@
-// const mongoose = require('mongoose');
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+// import mongoose from 'mongoose';
 
 const ClientSchema = new mongoose.Schema({
   name: {
@@ -13,5 +13,5 @@ const ClientSchema = new mongoose.Schema({
   },
 });
 
-// module.exports = mongoose.model('Client', ClientSchema);
-export default mongoose.model('Client', ClientSchema);
+module.exports = mongoose.model('Client', ClientSchema);
+// export default mongoose.model('Client', ClientSchema);

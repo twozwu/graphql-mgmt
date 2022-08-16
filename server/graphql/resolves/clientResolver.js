@@ -1,7 +1,11 @@
-import Client from "../../models/Client.js";
-import Project from "../../models/Project.js";
+// import Client from "../../models/Client.js";
+// import Project from "../../models/Project.js";
 
-export default {
+const Client = require("../../models/Client");
+const Project = require("../../models/Project");
+
+// export default {
+module.exports = {
   Query: {
     clients: async () => await Client.find(),
     client: async (_, { id }) => await Client.findById(id),

@@ -1,4 +1,5 @@
-import { gql } from "apollo-server-express";
+// import { gql } from "apollo-server-express";
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type Client {
@@ -59,4 +60,5 @@ const typeDefs = gql`
   }
 `;
 
-export default typeDefs;
+// export default typeDefs;
+module.exports = typeDefs;
